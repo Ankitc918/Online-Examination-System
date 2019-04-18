@@ -1,0 +1,191 @@
+﻿@model OnlineExam.Models.QuestionModel
+           @{
+               ViewBag.title = "Evaluation page";
+               }
+
+
+@{
+   
+    var totalQuestion = Model.TotalQuestionInSet;
+    //var endTime = (DateTime.Now.AddSeconds(65));
+    var endTime = ((TimeSpan) ViewBag.TimeExpire);
+    var timeRemaining =TimeSpan.FromTicks(endTime.Ticks-DateTime.Now.TimeOfDay.Ticks);
+   var remtimeinsec=timeRemaining.TotalSeconds;
+   
+    }
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="question-number"><h2>Question : @(Model.QuestionNumber)</h2></div>
+        <div>Time Remaining :<span id="hrRemaining"></span> : <span id="minRemaining"></span> : <span id="secRemaining"></span></div>
+    </div>
+</div>
+
+
+ @using (Ajax.BeginForm("PostAnswer", "Home", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, new { @id="form"}))
+ {
+    <input type="hidden" id="direction" name="Direction" value="forward" />
+    <input type="hidden" name="Token" value="@(Session["TOKEN"])" />
+    <input type="hidden" name="TestId" value="@(Model.TestId)" />
+    <input type="hidden" name="QuestionId" value="@(Model.QuestionNumber)" />
+     
+<div class="">
+    <div>
+        <table>
+            <tr>
+                <td><a href="javascript:void=(0);" class="btn btn-primary" onclick="saveBackward(this);" >|<< Save & Previous</a></td>
+                <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @qno = (Model.QuestionNumber - 1) })"class="btn btn-light">|<< Previous</a></td>
+                @for (int i = 0; i < Model.TotalQuestionInSet; i++)
+                {
+                    <td>
+                       <a href= "@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @qno = (i + 1) })" class="btn @(Model.QuestionNumber == (i + 1) ? "btn-primary" : "btn-light")">@(i+1)</a>
+                    </td> 
+                }
+                <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @qno = (Model.QuestionNumber < (totalQuestion - 1) ? Model.QuestionNumber + 1 : totalQuestion) })"class="btn btn-light">Next >>|</a></td>
+                <td><a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);" >Save & Next >>|</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row container">
+    <div class="col-md-10">
+        <br />
+      <div class="form-control"><h3><strong>Q. @Html.Raw(Model.Question ?? "")</strong></h3> </div>
+    
+        @switch (Model.QuestionType)
+        {
+            case "radio":
+                <div class="prelude">(Choose the correct answer)<br /></div>
+                <ul class="js_choices text-dark form-control radio list-unstyled">
+                 @for (int i = 0; i < Model.Options.Count(); i++)
+                 {
+                     <li>
+                       
+                        <input type="hidden" name="UserChoices[@i].ChoiceId" id="UserChoices[@i].ChoiceId" value="@Model.Options[i].ChoiceId" />
+                        <input type="radio"  name="UserChoices[@i].IsChecked" id="UserChoices[@i].IsChecked" @(!string.IsNullOrEmpty(Model.Options[i].Answer) ? "checked" : "")/> 
+                        <label class="code" for="UserChoices[@i].IsChecked">@Html.Raw(Model.Options[i].Label.Replace("[", "&lt;").Replace("]", "&gt;"))</label>
+                           
+                     <br />
+                    </li>
+   
+                 } 
+                   
+        </ul> 
+        <input type="hidden" name="Answer" value="no data" />
+                 break;
+            case "mcq":
+                 <div class="prelude">(Choose the correct answer)<br /></div>
+        <div class="js_choices text-dark form-control checkbox">
+            @for (int i = 0; i < Model.Options.Count(); i++)
+            {
+                     
+                        <input type="hidden" name="UserChoices[@i].ChoiceId" value="@Model.Options[i].ChoiceId" />
+                        <input type="checkbox"  name="UserChoices[@i].IsChecked"  @(!string.IsNullOrEmpty(Model.Options[i].Answer) ? "checked" : "")/> 
+                        <label for="UserChoices[@i].IsChecked" class="code">@Html.Raw(Model.Options[i].Label.Replace("[", "&lt;").Replace("]", "&gt;"))</label>
+                    <br />
+                   
+   
+            } 
+        </div>
+        <input type="hidden" name="Answer" />
+            break;
+            case "text":
+            <div>Write your thoughts here :</div>
+            <div class=" text-dark">
+                <p>
+                    <input type="hidden" name="UserChoices[0].ChoiceId" value="@Model.Options[0].ChoiceId" />
+                    <textarea name="Answer" class="form-control">@Model.Options[0].Answer</textarea>
+                </p>
+            </div>
+            break;
+
+        }
+    
+    
+    
+    </div>
+</div>
+    <br />
+     <div>
+     <a href="@Url.Action("Result", new { @token=Session["TOKEN"]})" class="btn btn-primary text-light">Exit</a>
+         </div>
+ }
+
+
+
+
+
+    <script type="text/javascript">
+   
+        var remSeconds=@remtimeinsec;
+    
+        function formatNumber(number)
+        {
+            if(number<10) return '0'+number;
+            else return '' +number;
+        }
+
+        function startTick()
+        {
+            var h=@timeRemaining.Hours;
+        var m=@timeRemaining.Minutes;
+        var s=@timeRemaining.Seconds;
+    
+        document.getElementById('hrRemaining').innerText =formatNumber(h);
+        document.getElementById('secRemaining').innerText =formatNumber(s);
+        document.getElementById('minRemaining').innerText =formatNumber(m);
+        var _tick = setInterval(function () 
+        {
+            if(remSeconds>1){
+                remSeconds = remSeconds - 1;
+                s = s - 1;
+                document.getElementById('secRemaining').innerText =formatNumber( s);
+                document.getElementById('minRemaining').innerText =formatNumber( m);
+                document.getElementById('hrRemaining').innerText =formatNumber(h);
+                if (s == 0)
+                {
+                    m=m-1;
+                    if(m==0 && h>0){
+                        h=h-1;
+                        m=60;
+                    }
+                    s = 60;
+                }
+            }
+            else{
+                alert('Your Exam time has expired');
+                clearInterval(_tick);
+                location.reload();
+            }
+        }, 1000);
+
+    }
+    startTick();
+    
+    function saveForward(sender)
+    {
+       
+        $('#direction').val('forward');
+        document.getElementById("form").submit();
+    }
+    function saveBackward(sender) {
+        
+        $('#direction').val('backward');
+        document.getElementById("form").submit();
+    }
+</script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('ul.js_choices li input[type="radio"]').on('click', function () {
+                var parentul = $(this).closest('ul.js_choices');
+                $.each(parentul.find('input[type="radio"][name!="' + $(this).attr('name') + '"]:checked'), function (i, e) {
+                    $(e).prop('checked', false);
+                });
+            });
+        })
+    </script>
+
+

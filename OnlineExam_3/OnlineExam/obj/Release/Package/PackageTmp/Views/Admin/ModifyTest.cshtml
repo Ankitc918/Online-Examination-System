@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "ModifyTest";
+}
+@model IList<OnlineExam.Models.Test>
+<h2><span class="text-primary">Modify Test</span></h2>
+
+@using (Ajax.BeginForm("ModifyTest", "Admin", new AjaxOptions {HttpMethod="POST"}))
+{
+ <div class="container form-control">
+     
+<table class="table table-hover">
+    <thead class="text-warning bg-dark">
+        <tr>
+            
+            <td>
+                @Html.Label("Name")
+            </td>
+            <td>
+                @Html.Label("Description")
+            </td>
+            
+            <td>
+                @Html.Label("Is Active")
+            </td>
+            <td>
+                @Html.Label("Duration (hh:mm:ss)")
+            </td>
+            <td>
+                @Html.Label("Action")
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var t in Model)
+       {
+            <tr>
+                @Html.HiddenFor(x=>t.Id)
+                <td>@t.Name</td>
+                <td>@t.Description</td>
+                <td>@t.IsActive</td>
+                <td>@t.DurationInMinute</td>
+                <td>
+                    <a class="btn btn-primary text-light" href="@Url.Action("EditTestDetails", new { id=t.Id})">Edit</a>
+                     <a class="btn btn-primary text-light" href="@Url.Action("DeleteTest", new { Id=t.Id })">Delete</a>
+                    <a class="btn btn-primary text-light" href="@Url.Action("ModifyTest1", new { id=t.Id})">Edit Questions</a>
+                </td>
+            </tr>
+           
+       }
+    </tbody>
+</table>
+    <br />
+     <a class="btn btn-warning text-dark" href="@Url.Action("AddTest")">Add New Test</a>
+     <a class="btn btn-light text-dark" href="@Url.Action("Details")">Back</a>
+
+</div>
+}

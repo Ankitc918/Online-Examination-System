@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="logindbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="logindbEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Choices" EntityType="logindbModel.Choice" />
+    <EntitySet Name="Questions" EntityType="logindbModel.Question" />
+    <EntitySet Name="QuestionCategories" EntityType="logindbModel.QuestionCategory" />
+    <EntitySet Name="QuestionXDurations" EntityType="logindbModel.QuestionXDuration" />
+    <EntitySet Name="Registrations" EntityType="logindbModel.Registration" />
+    <EntitySet Name="sysdiagrams" EntityType="logindbModel.sysdiagram" />
+    <EntitySet Name="TestXPapers" EntityType="logindbModel.TestXPaper" />
+    <EntitySet Name="TestXQuestions" EntityType="logindbModel.TestXQuestion" />
+    <EntitySet Name="Users" EntityType="logindbModel.User" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(logindbModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(logindbModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="Choice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="QuestionId" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="Label" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="Points" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="QuestionCategoryId" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="QuestionType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Question1" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Points" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="QuestionCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Category" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="QuestionXDuration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="RegistrationId" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="TestXQuestionId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="RequestTime" Type="Time" Precision="7" />
+    <Property Name="LeaveTime" Type="Time" Precision="7" />
+    <Property Name="AnsweredTime" Type="Time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="UserId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="TestId" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+    <Property Name="Token" Type="Int32" />
+    <Property Name="TokenExpireTime" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TestXPaper">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="RegistrationId" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="TestXQuestionId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="ChoiceId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="MarksScored" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TestXQuestion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="TestId" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="QuestionId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="QuestionNumber" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="Password" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="EntryDate" Type="DateTime" Precision="0" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

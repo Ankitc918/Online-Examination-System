@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Result";
+}
+@model OnlineExam.Models.ResultModel
+<h2><span class="text-primary">Result</span></h2>
+<p>
+    Thanks for visiting. Here is your Result.
+</p>
+
+
+@using (Ajax.BeginForm("Index", "Home", new AjaxOptions { HttpMethod = "GET", OnSuccess = "OnSuccess", OnFailure = "OnFailure" },new {@id="result"}))
+{
+
+    <div class="container form-control">
+        <div class="form-horizontal">
+            <div class="form-group form-inline">
+                <div class="col-md-3 text-primary">@Html.Label("Test Name")</div>
+                <div class="col-md-5"> @Model.TestName</div>
+                                     
+            </div>
+            <div class="form-group form-inline">
+                <div class="col-md-3 text-primary">@Html.Label("User Name")</div>
+                <div class="col-md-5">@Model.UserName</div>
+                                   
+            </div>
+            
+            <div class="form-group form-inline">
+                <div class="col-md-3 text-primary">@Html.Label("Marks Scored")</div>
+                <div class="col-md-5">@Model.MarkScored / @ViewBag.totalmarks</div>
+                                  
+            </div>
+
+
+
+            <div class="form-group form-inline">
+                <div class="col-md-3 text-primary">
+                    
+                </div>
+                @* to delete the registration and testxpaper details of user after exit *@
+                   @* <div class="col-md-5">
+                        <a href="@Url.Action("Exit", "Home", new {@token=Session["TOKEN"] })" class="btn btn-primary text-light">Take Another Test</a>
+                    </div>*@
+                <div class="col-md-5">
+                    <input type="submit" class="btn btn-primary"  value="Take Another Test" onclick="@Url.Action("Index","Home")" />
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+}
+
+@if (TempData["message"] != null) 
+{
+    <div class="row text-danger">
+        <div class="col-md-10">
+            <p>
+                @Html.Raw(TempData["message"].ToString())
+            </p>
+        </div>
+    </div>
+}

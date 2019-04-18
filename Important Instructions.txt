@@ -1,0 +1,24 @@
+1. copy the project folder in your projects directory in visual studio/projects/.
+
+2. copy .mdf & .ldf files for database in SQL server 'DATA' folder (where .mdf & .ldf are located).
+
+3. attach the copied files in step 2 in your database by right clicking on server explorer , select attach database , then select the copied .mdf file.
+
+4. run the project , that's it.
+
+Thanks
+
+
+for running on localhost on iis:
+ (before publishing : set the href path of 'body' in 'sendActivationMail' in 'HomeController' as "{0}://{1}/'application name in step 1 here'/Home/Activation/{2}")
+1. add new application in 'Default Web Site/' in iis manager by right clicking on it (with .Net Framework 4.0 required).
+
+2. set the name of the url of website, finish.
+
+3. publish the project in connection tab in 'file system' mode at desired destination location="http://localhost/'application name in step 1'".
+
+4. publish in release mode.
+
+5. run the website on iis.
+
+Thanks

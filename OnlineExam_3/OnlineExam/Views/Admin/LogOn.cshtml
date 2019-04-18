@@ -1,0 +1,45 @@
+﻿
+<div id="LoginPage">
+
+@model OnlineExam.Models.admindetails
+@{
+    ViewBag.Title = "Admin Login";
+}
+
+<h2><span class="text-primary">LogOn</span></h2>
+
+@using (Ajax.BeginForm("LogOn","Admin",new AjaxOptions { LoadingElementId = "loading", HttpMethod = "POST" ,OnSuccess="OnSuccess",OnFailure="OnFailure"})){
+    @Html.AntiForgeryToken() 
+    @Html.ValidationSummary(true,"", new { @class="text-danger"})
+    <div>
+        <fieldset>
+            <legend class="text-primary">Account Information</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.UserName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" ,})
+                @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <br />
+            <p>
+                <input type="submit" value="Log On"  class="btn btn-primary " onclick="" />
+            </p>
+        </fieldset>
+    </div>
+}
+
+   
+<div id="loading" style="display: none">
+    Loading...
+</div>
+     </div>

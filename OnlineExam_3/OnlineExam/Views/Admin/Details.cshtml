@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Details";
+}
+
+
+<h2><span class="text text-primary">Admin Details</span></h2>
+@model OnlineExam.Models.admindetails 
+  
+<div class="container form-control">  
+    
+    <hr />  
+    <table class="table table-hover">  
+       <tr class="bg-dark text-warning"> 
+           <td>  
+            @Html.Label("Admin Name")  
+        </td>  
+
+
+           <td>
+               @Html.Label("Action")
+           </td> 
+      </tr>    
+
+        <tr>
+            <td>  
+            @Html.DisplayFor(model => model.UserName)  
+                </td>
+            
+        
+            <td><a class="btn btn-primary text-light" href="@Url.Action("Edit","Admin")">Edit</a>
+                      <a class="btn btn-primary text-light" href="@Url.Action("ChangePassword","Admin")">Change Password</a>
+
+                      <a class="btn btn-primary text-light" href="@Url.Action("ModifyTest","Admin")">Modify Test</a>
+                 </td> 
+        </tr>  
+  
+    </table>  
+</div>
+<br />    
+<p>  
+   
+  <a class="btn btn-warning text-dark" href="@Url.Action("Index","Home")">Back to Home</a>
+</p> 

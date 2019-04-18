@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Activation";
+}
+
+<h2><span class="text-primary">Activation</span></h2>
+<br />
+@if (TempData["message"] != null) 
+{
+    <hr />
+    <div class="row text-dark">
+        <div class="col-md-10">
+            <p>
+                @Html.Raw(TempData["message"].ToString())
+            </p>
+        </div>
+    </div>
+}
+

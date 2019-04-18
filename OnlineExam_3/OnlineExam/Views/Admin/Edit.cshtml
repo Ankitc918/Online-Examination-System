@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@model OnlineExam.Models.admindetails  
+  
+ 
+  
+@using (Html.BeginForm())  
+{  
+    @Html.AntiForgeryToken()  
+      
+    <div class="container form-control ">  
+        <h4><span class="text-primary">Edit Admin Details</span></h4>  
+        <hr />  
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })  
+        @Html.HiddenFor(model => model.Id)  
+  
+        <div class="form-group col-md-3">  
+            @Html.LabelFor(model => model.UserName)  
+            <div class="col-md-5">  
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" } )  
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })  
+            </div>  
+        </div>  
+  
+        <div class="form-group form-inline">  
+            <div class="col-md-offset-2 col-md-10">  
+                <button type="submit" class="btn btn-primary" >Save</button>  
+                  
+                      <a class="btn btn-light text-dark" href="@Url.Action("Details","Admin")">Back</a>
+                   
+            </div> 
+          
+        </div>  
+    </div>  
+}  
+  

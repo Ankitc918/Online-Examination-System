@@ -1,0 +1,60 @@
+﻿@model OnlineExam.Models.SessionModel
+@{
+    ViewBag.Title = "Instruction";
+}
+<h2><span class="text-primary">Instructions</span></h2>
+
+<div class="container form-control">
+    <br />
+    <div class="row text-primary">
+        <div class="col-md-6 ">
+            <h2>@ViewBag.TestName</h2>
+            (@ViewBag.TestDescription)
+        </div>
+        <div class="col-md-6">
+            Test Duration : @ViewBag.TestDuration minutes
+            <br />
+            Test Question : @ViewBag.QuestionCount
+        </div>
+    </div>
+    <hr />
+    <div>
+<h4>During the exam: (read these instructions carefully)</h4>
+        </div>
+<ul>
+    <li>
+The student may not use his or her textbook, course notes, or receive help from a proctor or any other outside source.
+        </li>
+    <li>
+Students must complete the given questions within the given time frame allotted for the exam.
+        </li>
+    <li>
+Students must not stop the session and then return to it. 
+        </li>
+    <li>
+This is especially important in the online environment where the system will "time-out" and not allow the User to reenter the exam.
+        </li>
+    <li>
+        Computer/laptop are to be Logged out or close the Browser when you leave your place.
+    </li>
+    <li>
+        To begin the exam, click on the "Register & Start" button below.
+    </li>
+</ul>
+    @if (Model != null)
+    {
+        using (Ajax.BeginForm("Registration", "Home", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, new { @id = "formRegister" }))
+        {
+            @Html.HiddenFor(x=>Model.TestId)
+        @Html.HiddenFor(x=>Model.UserName)
+        @Html.HiddenFor(x=>Model.Email)
+
+       // @Html.HiddenFor(x=>Model.Password)
+
+       <input type="button" onclick="getElementById('formRegister').submit();" class="btn btn-primary" value="Register & Start" />
+      //  <a href="javascript:void(0);" onclick="getElementById('formRegister').submit();" class="btn btn-primary">Register and Start</a>
+        }
+    }
+ 
+
+  </div>

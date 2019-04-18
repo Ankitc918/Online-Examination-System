@@ -1,0 +1,54 @@
+﻿@model OnlineExam.Models.SessionModel
+
+
+@{
+    ViewBag.Title = "Homepage";
+}
+<h2><span class="text-primary">Welcome</span></h2>
+<span class="text-fade">If not registered, click @Html.ActionLink("here", "RegNew", "Home", new { @class="text-info"}).</span>
+@if (TempData["message"] != null) 
+{
+    <div class="row text-danger">
+        <div class="col-md-10">
+            <p>
+                @Html.Raw(TempData["message"].ToString())
+            </p>
+        </div>
+    </div>
+}
+
+@using (Ajax.BeginForm("Index", "Home", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+{
+    <div class="container form-control">
+        <div class="form-horizontal">
+            <div class="form-group form-inline">
+                <div class="col-md-3">@Html.Label("Select Test")</div>
+                <div class="col-md-5">@Html.DropDownListFor(x => x.TestId, new SelectList(ViewBag.Tests, "Id", "Name", Model.TestId), "--select test--", new { @class = "form-control" })</div>
+                                      @Html.ValidationMessageFor(x => x.TestId,"The Test field is required.")
+            </div>
+            <div class="form-group form-inline">
+                <div class="col-md-3">@Html.Label("Enter Name")</div>
+                <div class="col-md-5">@Html.TextBoxFor(x => Model.UserName, new { @class = "form-control" })</div>
+                                      @Html.ValidationMessageFor(x => x.UserName)
+            </div>
+            <div class="form-group form-inline">
+                <div class="col-md-3">@Html.Label("Enter Email")</div>
+                <div class="col-md-5">@Html.TextBoxFor(x => Model.Email, new { @class = "form-control",type="email" })</div>
+                                      @Html.ValidationMessageFor(x => x.Email)
+            </div>
+            @*<div class="form-group form-inline">
+                <div class="col-md-3">@Html.Label("Enter Password")</div>
+                <div class="col-md-5">@Html.PasswordFor(x => x.Password, new { @class = "form-control" })</div>
+                                      @Html.ValidationMessageFor(x => x.Password)
+            </div>*@
+            <div class="form-group form-inline">
+                <div class="col-md-3"></div>
+                <div class="col-md-5">
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            </div>
+            
+        </div>
+    </div> 
+}
+ 

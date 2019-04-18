@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Add Question";
+}
+
+
+
+@model OnlineExam.Models.AddQues  
+
+@using (Ajax.BeginForm("AddQues", "Admin", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+{  
+    @Html.AntiForgeryToken()  
+      
+    <div class="container form-control">  
+        <h4><span class="text-primary">Add Question</span></h4>  
+        <hr />  
+        @Html.HiddenFor(model => model.TestId, new { @class="form-control"})  
+
+       <div class="form-group row"> 
+          <div class="col-md-3" >  
+            @Html.Label("Question") : </div>
+            <div class="col-md-8">  
+                @Html.TextAreaFor(model => model.Question, new { @class="form-control"})  
+               
+            </div>  
+        </div>
+
+       @*<div class="form-group row"> 
+          <div class="col-md-3" >  
+            @Html.Label("Question Type") : </div>
+            <div class="col-md-2">  
+                @Html.ValidationMessageFor(x=>x.QuestionCategoryId,"select type")
+               <select id="QuestionCategoryId" name="QuestionCategoryId" class="form-control" >
+                   <option value="null">--select--</option>   
+                   <option value="2">Radio</option>
+                      <option value="1">Mcq</option>
+                  </select>
+            </div>  
+        </div>*@
+        
+   <div class="form-group row"> 
+       <div class="col-md-3" >  
+            @Html.LabelFor(model => model.Points) : </div>
+            <div class="col-md-5">  
+                @Html.TextBoxFor(model => model.Points, new { @class="form-control"})  
+               
+            </div>  
+        </div> 
+         <div class="form-group row">  
+             <div class="col-md-3" > 
+            @Html.LabelFor(model => model.IsActive) : </div>
+            <div class="col-md-2">  
+                @Html.ValidationMessageFor(x=>x.IsActive,"select type")
+                  <select id="IsActive" name="IsActive" class="form-control" >
+                      <option value="">--select--</option>
+                      <option value="True">True</option>
+                      <option value="False">False</option>
+                  </select>
+            </div>  
+        </div>   
+        <hr />
+        
+        <div class="form-group">  
+             <div class="col-md-3"></div>
+            <div class="col-md-2">  
+                  <button type="submit" class="btn btn-success">Add Options</button>
+            </div>  
+        </div>  
+    </div>  
+}  
+  

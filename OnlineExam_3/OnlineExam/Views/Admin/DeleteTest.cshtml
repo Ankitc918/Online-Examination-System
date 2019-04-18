@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "DeleteTest";
+}
+
+<h2><span class="text-primary">Delete Test</span></h2>
+@model OnlineExam.Models.Test
+
+@using (Ajax.BeginForm("DeleteTest", "Admin", new AjaxOptions { HttpMethod="POST"}))
+{
+<div class="container form-control">
+    @*<div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Test Id")
+        </div>
+        <div class="col-md-8">
+            @Html.DisplayFor(x=>x.Id)
+        </div>
+    </div>*@
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Test Name")
+        </div>
+        <div class="col-md-8">
+            @Html.DisplayFor(x=>x.Name)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Description")
+        </div>
+        <div class="col-md-8">
+            @Html.DisplayFor(x=>x.Description)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Is Active")
+        </div>
+        <div class="col-md-8">
+            @Html.DisplayFor(x=>x.IsActive)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            @Html.Label("Duration In Minutes")
+        </div>
+        <div class="col-md-8">
+            @Html.DisplayFor(x=>x.DurationInMinute)
+        </div>
+    </div>
+    <hr />
+    <div class="row form-group">
+        <div class="col-md-3">
+            
+        </div>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+             <a class="btn btn-light text-dark" href="@Url.Action("ModifyTest")">Back</a>
+        </div>
+    </div>
+</div>
+}

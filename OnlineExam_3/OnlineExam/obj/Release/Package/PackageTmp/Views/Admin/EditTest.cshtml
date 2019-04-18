@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "EditTest";
+}
+@model IList< OnlineExam.Models.Question>
+ 
+
+<h2><span class="text-primary">Edit Test : @ViewBag.TestName</span></h2>
+<div class="row text-primary">
+        <div class="col-md-6 ">
+            <h2>@ViewBag.TestName</h2>
+            (@ViewBag.TestDescription)
+        </div>
+        <div class="col-md-6">
+            Test Duration : @ViewBag.TestDuration minutes
+            <br />
+            Test Question : @ViewBag.QuestionCount
+            <br />
+            Maximum Marks : @ViewBag.Mm
+        </div>
+ </div>
+    <hr />
+<div class="container form-control">
+<table class="table table-hover">
+    <thead class="text-warning bg-dark">
+        <tr>
+            
+            @*<td>
+                @Html.Label("QuestionType")
+            </td>*@
+            <td>
+                @Html.Label("Question")
+            </td>
+            <td>
+                @Html.Label("Points")
+            </td>
+            <td>
+                @Html.Label("IsActive")
+            </td>
+            <td>
+                @Html.Label("Action")
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var t in Model)
+       {
+            <tr>
+                
+                @*<td>@t.QuestionType</td>*@
+                <td>@t.Question1</td>
+                <td>@t.Points</td>
+                <td>@t.IsActive</td>
+                <td>
+                    <a class="btn btn-primary text-light" href="@Url.Action("EditQues", new { Id=t.Id })">Edit</a>
+                     <a class="btn btn-primary text-light" href="@Url.Action("DeleteQues", new { Id=t.Id })">Delete</a>
+                    <a class="btn btn-primary text-light" href="@Url.Action("Choices", new { Id=t.Id})">Edit Choices</a>
+                </td>
+            </tr>
+       }
+    </tbody>
+</table>
+    <br />
+    <a class="btn btn-warning text-dark" href="@Url.Action("AddQues", new { Id=ViewBag.TestId})">Add new Question</a>
+    <a class="btn btn-light text-dark" href="@Url.Action("ModifyTest")">Back</a>
+    
+</div>
+
+
+

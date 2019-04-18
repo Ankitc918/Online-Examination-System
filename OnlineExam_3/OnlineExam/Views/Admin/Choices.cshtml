@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "EditChoices";
+}
+@model IList<OnlineExam.Models.QXOModel>
+<div>
+<h2> <span class="text-primary"> Edit Choices</span></h2>(<span class="text-danger">Note : set only one correct answer</span>)*
+ </div>
+<div class="container form-control">
+    <div class=" form-group">
+       <strong>Q. @ViewBag.ques</strong>
+    </div>    
+    <table class=" table table-hover">
+        <tr class="text-warning bg-dark">
+            <td>Label</td>
+            <td>Is Correct</td>
+            <td>Is Active</td>
+            <td>Action</td>
+        </tr>
+        @{string y = "Yes"; string n = "No";}
+        @foreach (var t in Model)
+        {
+         <tr>  
+             
+             <td>@t.Label</td>
+             <td>@if(t.Points==2)
+                 {
+                     @y;
+                 }
+                 else
+                 {
+                     @n;
+                 }
+                     </td>
+             <td>@t.IsActive</td>
+          <td>
+              <a class="btn btn-primary text-light" href="@Url.Action("EditChoices", new { Id=t.ChoiceId })">Edit</a>
+                     <a class="btn btn-primary text-light" href="@Url.Action("DeleteChoices", new { Id=t.ChoiceId })">Delete</a>
+                    
+          </td>
+         </tr>    
+        }
+    </table>
+     <br />
+    <a class="btn btn-warning text-dark" href="@Url.Action("AddChoice", new { Id=ViewBag.quesid})">Add new Choice</a>
+    <a class="btn btn-light text-dark" href="@Url.Action("EditTest", new { TestId=ViewBag.testid})">Back</a>
+
+</div>

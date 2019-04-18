@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "EditTestDetails";
+}
+@model OnlineExam.Models.Test
+
+@using (Ajax.BeginForm("EditTestDetails", "Admin", new AjaxOptions { HttpMethod="POST"}))
+{  
+    @Html.AntiForgeryToken()  
+      
+    <div class="container form-control">  
+        <h4><span class="text-primary">Edit Test Details</span></h4>  
+        <hr />  
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })  
+        @Html.HiddenFor(x => x.Id)  
+  
+        <div class="form-group row">
+            <div class="col-md-3">  
+            @Html.Label("Test Name") 
+                </div> 
+            <div class="col-md-3">  
+               @Html.TextBoxFor(x => x.Name, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })  
+            </div>  
+        </div>  
+  
+       
+      <div class="form-group row">  
+           <div class="col-md-3"> 
+            @Html.Label("Test Description")  
+               </div>
+            <div class="col-md-8">  
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })  
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })  
+            </div>  
+        </div>  
+        
+           
+        <div class="form-group row">  
+             <div class="col-md-3"> 
+            @Html.Label("Duration (hh:mm)")  
+                 </div>
+            <div class="col-md-2">  
+                 <input type="time" id="DurationInMinute" name="DurationInMinute" class="form-control" value="@Model.DurationInMinute" required />
+            </div>  
+        </div>  
+  
+    
+        <div class="form-group row">  
+             <div class="col-md-3"> 
+            @Html.Label("Is Active")  
+                 </div>
+            <div class="col-md-2">  
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })  
+                <select id="IsActive" name="IsActive" class="form-control" >
+                      <option value="True">True</option>
+                      <option value="False">False</option>
+                  </select>
+            </div>  
+        </div>  
+  
+  
+        <div class="form-group form-inline">  
+             <div class="col-md-3"></div>
+            <div class="col-md-5">  
+                <button type="submit" class="btn btn-primary">Save</button>  
+                  <a class="btn btn-light text-dark" href="@Url.Action("ModifyTest")">Back</a>
+                      
+                   
+            </div>  
+        </div>  
+    </div>  
+} 

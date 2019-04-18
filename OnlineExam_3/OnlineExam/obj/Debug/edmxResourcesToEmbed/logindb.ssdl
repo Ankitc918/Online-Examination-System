@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="logindbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="logindbModelStoreContainer">
+    <EntitySet Name="Choice" EntityType="logindbModel.Store.Choice" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Question" EntityType="logindbModel.Store.Question" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QuestionCategory" EntityType="logindbModel.Store.QuestionCategory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QuestionXDuration" EntityType="logindbModel.Store.QuestionXDuration" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Registration" EntityType="logindbModel.Store.Registration" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="logindbModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestXPaper" EntityType="logindbModel.Store.TestXPaper" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestXQuestion" EntityType="logindbModel.Store.TestXQuestion" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="logindbModel.Store.User" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Choice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="QuestionId" Type="nchar" MaxLength="50" />
+    <Property Name="Label" Type="varchar" MaxLength="500" />
+    <Property Name="Points" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="QuestionCategoryId" Type="nchar" MaxLength="50" />
+    <Property Name="QuestionType" Type="varchar" MaxLength="50" />
+    <Property Name="Question1" Type="text" />
+    <Property Name="Points" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="QuestionCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Category" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="QuestionXDuration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="RegistrationId" Type="nchar" MaxLength="50" />
+    <Property Name="TestXQuestionId" Type="nchar" MaxLength="10" />
+    <Property Name="RequestTime" Type="time" />
+    <Property Name="LeaveTime" Type="time" />
+    <Property Name="AnsweredTime" Type="time" />
+  </EntityType>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="UserId" Type="nchar" MaxLength="10" />
+    <Property Name="TestId" Type="nchar" MaxLength="50" />
+    <Property Name="RegistrationDate" Type="date" />
+    <Property Name="Token" Type="int" />
+    <Property Name="TokenExpireTime" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TestXPaper">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="RegistrationId" Type="nchar" MaxLength="50" />
+    <Property Name="TestXQuestionId" Type="nchar" MaxLength="10" />
+    <Property Name="ChoiceId" Type="nchar" MaxLength="10" />
+    <Property Name="Answer" Type="text" />
+    <Property Name="MarksScored" Type="int" />
+  </EntityType>
+  <EntityType Name="TestXQuestion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="TestId" Type="nchar" MaxLength="50" />
+    <Property Name="QuestionId" Type="nchar" MaxLength="10" />
+    <Property Name="QuestionNumber" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Name" Type="nchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="EntryDate" Type="date" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'logindb.dbo.Test' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="Test">
+        <Property Name="Id" Type="nchar" MaxLength="10" />
+        <Property Name="Name" Type="varchar" MaxLength="50" />
+        <Property Name="Description" Type="text" />
+        <Property Name="IsActive" Type="bit" />
+        <Property Name="DurationInMinutes" Type="int" />
+      </EntityType>-->
+</Schema>

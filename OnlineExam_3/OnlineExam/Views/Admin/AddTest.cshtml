@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "AddTest";
+}
+
+@model OnlineExam.Models.AddTest
+
+@using (Ajax.BeginForm("AddTest", "Admin", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+{  
+    @Html.AntiForgeryToken()  
+      
+    <div class="container form-control">  
+        <h4><span class="text-primary">Add New Test</span></h4>  
+        <hr />  
+        @Html.HiddenFor(model => model.Id, new { @class="form-control"})  
+
+       <div class="form-group row"> 
+          <div class="col-md-3" >  
+            @Html.Label("Test Name") : </div>
+            <div class="col-md-8">  
+                @Html.TextBoxFor(model => model.Name, new { @class="form-control"})  
+               @Html.ValidationMessageFor(x=>x.Name,"enter test name")
+            </div>  
+        </div>
+
+       <div class="form-group row"> 
+          <div class="col-md-3" >  
+            @Html.Label("Test Description") : </div>
+            <div class="col-md-8">  
+                @Html.TextAreaFor(x => x.Description, new { @class="form-control"})
+                @Html.ValidationMessageFor(x=>x.Description,"please enter description")
+            </div>  
+        </div>
+        
+   
+         <div class="form-group row">  
+             <div class="col-md-3" > 
+            @Html.LabelFor(model => model.IsActive) : </div>
+            <div class="col-md-2">  
+                
+                  <select id="IsActive" name="IsActive" class="form-control" >
+                      <option value="">--select--</option>
+                      <option value="True">True</option>
+                      <option value="False">False</option>
+                  </select>
+                @Html.ValidationMessageFor(x=>x.IsActive,"select type")
+            </div>  
+        </div>   
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Label("Test Duration (hh:mm)")
+            </div>
+            <div class="col-md-2">
+               <input type="time" id="DurationInMinute" name="DurationInMinute" class="form-control"  required/>
+               
+            </div>
+        </div>
+        <hr />
+        
+        <div class="form-group">  
+            <div class="col-md-offset-2 col-md-10">  
+                  <button type="submit" class="btn btn-success">Create & Add Questions</button>
+                 <a class="btn btn-light text-dark" href="@Url.Action("ModifyTest")">Back</a>
+            </div>  
+        </div>  
+    </div>  
+}  
+

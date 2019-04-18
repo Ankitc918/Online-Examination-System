@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="303d372de3244a008b060854a4c6d648" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineExamModel.Choice" Width="1.5" PointX="9" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.Question" Width="1.5" PointX="3.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.QuestionCategory" Width="1.5" PointX="1.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.Registration" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.Test" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.TestXPaper" Width="1.5" PointX="11.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.TestXQuestion" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineExamModel.User" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="OnlineExamModel.FK_Choice_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_TestXPaper_Choice" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_Question_QuestionCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_TextXQuestion_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_Registration_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_Registration_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_TestXPaper_Registration" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_TextXQuestion_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineExamModel.FK_TestXPaper_TextXQuestion" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OnlineExamModel.Admin" Width="1.5" PointX="9.8742121317769449" PointY="22.289601664193722" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

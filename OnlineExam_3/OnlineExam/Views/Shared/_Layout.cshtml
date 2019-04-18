@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-2.5.3.js")" type="text/javascript"></script>
+    
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/mustache.js")" type="text/javascript"></script>
+ 
+</head>
+<body class="container">
+    <div id="page">
+
+        <header>
+            <div id="title">
+                <h1><span style="color:#00ff90">Online </span>Examination System</h1>
+            </div>
+            <div id="logindisplay" class="text-primary">
+                   @if(Request.IsAuthenticated) {
+                        <text>Welcome <strong><em>@Html.ActionLink(@User.Identity.Name,"Details","Admin")</em></strong>
+                        [ @Html.ActionLink("Log Off", "LogOff", "Admin") ]</text>
+                                 }
+                    else {
+                        @:[ @Html.ActionLink("Admin LogOn", "LogOn", "Admin") ]
+                                 }
+            </div>
+            <div id="msg">
+             
+            </div>
+            <nav >
+                <ul id="menu">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>  
+                </ul>
+            </nav>
+        </header>
+        <section id="main">
+           @RenderBody()
+        </section>
+        <footer>
+            
+            <div id="footer" class="text-primary">
+                <h3>
+                <strong>
+                  <span class="text-primary"> &copy;@DateTime.Now.Year&nbsp;. All rights reserved.(<span style="color:#ea0f0f">Ankit Chauhan</span>) </span>
+                </strong>
+                </h3>
+            </div>
+        </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+    </div>
+</body>
+</html>
